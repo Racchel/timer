@@ -14,7 +14,32 @@ const paletteColor = {
 
 }
 
-export const Container = styled.div`
+
+export const ContainerApp = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url('https://i.pinimg.com/originals/76/38/9f/76389f6ef17efc39df659073843881a7.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.9;
+
+   :after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: ${props => `rgba(0,0,0,${props.opacity})`};
+      transition: 3s;
+   }
+`
+
+export const ContainerTimer = styled.div`
    z-index: 2;
    display: flex;
    align-items: center;

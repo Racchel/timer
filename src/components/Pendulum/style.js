@@ -9,6 +9,7 @@ export const Container = styled.div`
    animation-duration: 4s;
    animation-name: ${props => props.animation};
    animation-iteration-count: infinite;
+   transition: 3s;
 
    @keyframes time {
       0% {

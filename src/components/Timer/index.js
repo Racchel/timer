@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { BoxButtons, BoxTimer, Button, Container, Content } from './style.js'
+import { ContainerApp, ContainerTimer, Content, BoxTimer, BoxButtons, Button, } from './style.js'
 import sound from '../../shared/sound/tic-tac.mp3'
 import ReactAudioPlayer from 'react-audio-player'
 import { Pendulum } from '../Pendulum'
@@ -14,7 +14,8 @@ export class Timer extends Component {
       seconds: 0,
       stop: true,
       animation: '',
-      textButton: 'Start'
+      textButton: 'Start',
+      opacity: 1
    }
 
    /** conta os segundos, minutos e horas */
@@ -44,13 +45,13 @@ export class Timer extends Component {
       if (this.state.stop) {
          this.timer()
          this.rap.audioEl.current.play()
-         this.setState({ stop: false, textButton: 'Pausar', animation: 'time' })
+         this.setState({ stop: false, textButton: 'Pausar', animation: 'time', opacity: 0.8 })
 
          /** pausa o timer, o som e o pêndulo */
       } else {
          clearInterval(this.timerInterval)
          this.rap.audioEl.current.pause()
-         this.setState({ stop: true, textButton: 'Iniciar', animation: '' })
+         this.setState({ stop: true, textButton: 'Iniciar', animation: '', opacity: 1 })
       }
    }
 
@@ -58,7 +59,7 @@ export class Timer extends Component {
    reset = () => {
       clearInterval(this.timerInterval)
       this.rap.audioEl.current.pause()
-      this.setState({ seconds: 0, minutes: 0, hours: 0, stop: true, textButton: 'Iniciar', animation: '' })
+      this.setState({ seconds: 0, minutes: 0, hours: 0, stop: true, textButton: 'Iniciar', animation: '', opacity: 1 })
    }
 
    /** formatar as horas */
@@ -83,14 +84,15 @@ export class Timer extends Component {
 
    render() {
       return (
-         <>
+         <ContainerApp opacity={this.state.opacity}>
+
             <Pendulum animation={this.state.animation} />
             <ReactAudioPlayer
                ref={(element) => { this.rap = element }}
                src={sound}
                loop
             />
-            <Container>
+            <ContainerTimer>
                <BoxTimer>
                   <Content>
                      <h1>{this.formatTime()}</h1>
@@ -102,8 +104,8 @@ export class Timer extends Component {
                   </BoxButtons>
                </BoxTimer>
 
-            </Container>
-         </>
+            </ContainerTimer>
+         </ContainerApp>
       )
    }
 }
