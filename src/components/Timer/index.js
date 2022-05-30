@@ -61,6 +61,26 @@ export class Timer extends Component {
       this.setState({ seconds: 0, minutes: 0, hours: 0, stop: true, textButton: 'Iniciar', animation: '' })
    }
 
+   /** formatar as horas */
+   formatTime = () => {
+      const time =
+         `${this.state.hours < 10 ? '0' + this.state.hours : this.state.hours}`
+         + ':' +
+         `${this.state.minutes < 10 ? '0' + this.state.minutes : this.state.minutes}`
+         + ':' +
+         `${this.state.seconds < 10 ? '0' + this.state.seconds : this.state.seconds}`
+
+      return time
+   }
+
+   componentDidMount() {
+      document.title = '| My timer'
+   }
+
+   componentDidUpdate() {
+      document.title = '| ' + this.formatTime()
+   }
+
    render() {
       return (
          <>
@@ -73,13 +93,7 @@ export class Timer extends Component {
             <Container>
                <BoxTimer>
                   <Content>
-                     <h1>
-                        {this.state.hours < 10 ? '0' + this.state.hours : this.state.hours}
-                        :
-                        {this.state.minutes < 10 ? '0' + this.state.minutes : this.state.minutes}
-                        :
-                        {this.state.seconds < 10 ? '0' + this.state.seconds : this.state.seconds}
-                     </h1>
+                     <h1>{this.formatTime()}</h1>
                   </Content>
 
                   <BoxButtons>
